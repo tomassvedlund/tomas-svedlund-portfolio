@@ -1,0 +1,404 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Om - Tomas Svedlund</title>
+  
+  <!-- Styles -->
+  <link href="./style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <!-- Scripts -->
+  <script src="./js/date.js" defer></script>
+  <script src="./js/clock.js" defer></script>
+  <script src="./js/sidebar-indicator.js" defer></script>
+  <script src="./js/hero-change.js" defer></script>
+  <script src="./js/map.js" defer></script>
+  <script src="./js/responsive-menu.js" defer></script>
+  <!-- <script src="./js/hidden-socials.js" defer></script> -->
+    
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+
+</head>
+<body class="from-portfolio-light to-portfolio-black-bread">
+<div class="app relative space-y-12 md:space-y-24 ">
+
+
+
+
+  <!-- Site Header -->
+  <header class=" header-small header-full with-notch w-full lg:pr-6 h-24 bg-portfolio-black-bread text-white grid grid-cols-1 md:grid-cols-[auto_auto_1fr] pl-28 items-center fixed top-0 z-50  min-w-0 rounded-br-4xl">
+
+
+    <!-- Logo -->
+    <div class="fixed px-6 lg:p-0 lg:top-5 lg:left-5 lg:pr-12 ">
+      <a href="index.html">
+        <img src="assets/images/logo-big.png" alt="Logo" class=" w-14 md:w-18 lg:w-20 hover:duration-300 hover:scale-110 hover:shadow-2xl">
+      </a>
+    </div>
+
+    <!-- Based in -->
+    <a href="contact.html#map-karlstad" class="hidden h-full md:flex flex-col justify-center px-6 overflow-hidden min-w-0">
+      <span class="text-portfolio-gray font-paragraph">Verksam i:</span>
+      <span class="text-portfolio-light font-headings text-2xl font-semibold whitespace-nowrap">Karlstad, Värmland</span>
+    </a>
+
+    <!-- Local Time -->
+    <div class=" hidden h-full md:flex flex-col justify-center items-center p-6 overflow-hidden min-w-0 text-center">
+      <span class="text-portfolio-gray font-paragraph">Lokal tid:</span>
+      <span id="clock" class="text-portfolio-light font-headings text-2xl font-semibold"></span>
+    </div>
+
+    <!-- Menu -->
+    <div class="hidden h-full lg:flex items-center justify-end  min-w-0">
+      <nav class="">
+        <ul class="flex flex-wrap justify-end items-center gap-6 text-2xl font-semibold ">
+          <li class=""><a href="index.html">Hem</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li class="border-4 border-portfolio-green px-2 py-1 rounded-xl "><a href="about.html">Om</a></li>
+          <li><a href="contact.html">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- MENU BUTTON -->
+    <button id="menu-button" class="menu-button">
+      <svg class="" width="36" height="24" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 12V10H18V12H0ZM0 7V5H18V7H0ZM0 2V0H18V2H0Z" fill="currentColor"/>
+      </svg>
+    </button>
+
+    <!-- Responsive menu -->
+
+      <nav class="responsive-menu lg:hidden bg-portfolio-black-bread">
+        <ul class="responsive-menu__list text-portfolio-light text-2xl ">
+          <li class=""><a href="index.html" class="responsive-menu__list-link">Hem</a></li>
+          <li><a href="portfolio.html" class="responsive-menu__list-link">Portfolio</a></li>
+          <li><a href="about.html" class="responsive-menu__list-link">Om</a></li>
+          <li><a href="contact.html" class="responsive-menu__list-link">Kontakt</a></li>
+        </ul>
+      </nav>
+
+
+  </header>
+
+  <!-- Sidebar Navigation -->
+   <section class=" hidden lg:block fixed left-0 top-24 bg-portfolio-black-bread w-24 h-screen z-40 max-w-24 p-0">
+    
+    <div class="text-4xl text-portfolio-light h-full font-headings font-semibold flex flex-col items-center pt-40">
+      
+      <!-- Changing section text -->
+      <span id="section-indicator" class="max-h-full rotate-270 flex items-center uppercase transition duration-300">
+        om
+      </span>
+
+      <!-- Sidebar Socials -->
+      <div id="sidebar-socials" class=" w-full h-full flex flex-col items-center justify-end pb-56 gap-8 z-50 ">
+
+        <!-- Instagram -->
+          <div class="socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://www.instagram.com/tomas.svedlund/" class="" target="_blank" rel="noopener noreferrer">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.28 0H22.72C27.84 0 32 4.16 32 9.28V22.72C32 25.1812 31.0223 27.5416 29.282 29.282C27.5416 31.0223 25.1812 32 22.72 32H9.28C4.16 32 0 27.84 0 22.72V9.28C0 6.81879 0.977712 4.45839 2.71805 2.71805C4.45839 0.977712 6.81879 0 9.28 0ZM8.96 3.2C7.43235 3.2 5.96727 3.80686 4.88707 4.88707C3.80686 5.96727 3.2 7.43235 3.2 8.96V23.04C3.2 26.224 5.776 28.8 8.96 28.8H23.04C24.5676 28.8 26.0327 28.1931 27.1129 27.1129C28.1931 26.0327 28.8 24.5676 28.8 23.04V8.96C28.8 5.776 26.224 3.2 23.04 3.2H8.96ZM24.4 5.6C24.9304 5.6 25.4391 5.81071 25.8142 6.18579C26.1893 6.56086 26.4 7.06957 26.4 7.6C26.4 8.13043 26.1893 8.63914 25.8142 9.01421C25.4391 9.38929 24.9304 9.6 24.4 9.6C23.8696 9.6 23.3609 9.38929 22.9858 9.01421C22.6107 8.63914 22.4 8.13043 22.4 7.6C22.4 7.06957 22.6107 6.56086 22.9858 6.18579C23.3609 5.81071 23.8696 5.6 24.4 5.6ZM16 8C18.1217 8 20.1566 8.84285 21.6569 10.3431C23.1571 11.8434 24 13.8783 24 16C24 18.1217 23.1571 20.1566 21.6569 21.6569C20.1566 23.1571 18.1217 24 16 24C13.8783 24 11.8434 23.1571 10.3431 21.6569C8.84285 20.1566 8 18.1217 8 16C8 13.8783 8.84285 11.8434 10.3431 10.3431C11.8434 8.84285 13.8783 8 16 8ZM16 11.2C14.727 11.2 13.5061 11.7057 12.6059 12.6059C11.7057 13.5061 11.2 14.727 11.2 16C11.2 17.273 11.7057 18.4939 12.6059 19.3941C13.5061 20.2943 14.727 20.8 16 20.8C17.273 20.8 18.4939 20.2943 19.3941 19.3941C20.2943 18.4939 20.8 17.273 20.8 16C20.8 14.727 20.2943 13.5061 19.3941 12.6059C18.4939 11.7057 17.273 11.2 16 11.2Z" fill="currentColor" fill-opacity="0.8"/>
+            </svg>              
+            </a>
+
+          </div>
+
+        <!-- Facebook -->
+          <div class="socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://www.facebook.com/tomas.svedlund/?locale=sv_SE" target="_blank" rel="noopener noreferrer">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 0C7.19999 0 0 7.21285 0 16.0964C0 24.1285 5.85599 30.7952 13.504 32V20.755H9.43999V16.0964H13.504V12.5462C13.504 8.51406 15.888 6.29719 19.552 6.29719C21.296 6.29719 23.12 6.60241 23.12 6.60241V10.5703H21.104C19.12 10.5703 18.496 11.8072 18.496 13.0763V16.0964H22.944L22.224 20.755H18.496V32C22.2663 31.4022 25.6995 29.4707 28.1758 26.5543C30.6522 23.6379 32.0085 19.9287 32 16.0964C32 7.21285 24.8 0 16 0Z" fill="currentColor" fill-opacity="0.8"/>
+            </svg>              
+            </a>
+
+          </div>
+
+        <!-- Linkedin -->
+          <div class="socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://www.linkedin.com/in/tomas-svedlund-599447263/" target="_blank" rel="noopener noreferrer">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M28.4444 0C29.3874 0 30.2918 0.374602 30.9586 1.0414C31.6254 1.70819 32 2.61256 32 3.55556V28.4444C32 29.3874 31.6254 30.2918 30.9586 30.9586C30.2918 31.6254 29.3874 32 28.4444 32H3.55556C2.61256 32 1.70819 31.6254 1.0414 30.9586C0.374602 30.2918 0 29.3874 0 28.4444V3.55556C0 2.61256 0.374602 1.70819 1.0414 1.0414C1.70819 0.374602 2.61256 0 3.55556 0H28.4444ZM27.5556 27.5556V18.1333C27.5556 16.5963 26.945 15.1221 25.8581 14.0353C24.7712 12.9484 23.2971 12.3378 21.76 12.3378C20.2489 12.3378 18.4889 13.2622 17.6356 14.6489V12.6756H12.6756V27.5556H17.6356V18.7911C17.6356 17.4222 18.7378 16.3022 20.1067 16.3022C20.7668 16.3022 21.3998 16.5644 21.8666 17.0312C22.3333 17.498 22.5956 18.131 22.5956 18.7911V27.5556H27.5556ZM6.89778 9.88445C7.68989 9.88445 8.44956 9.56978 9.00967 9.00967C9.56978 8.44956 9.88445 7.68989 9.88445 6.89778C9.88445 5.24444 8.55111 3.89333 6.89778 3.89333C6.10095 3.89333 5.33676 4.20987 4.77331 4.77331C4.20987 5.33676 3.89333 6.10095 3.89333 6.89778C3.89333 8.55111 5.24444 9.88445 6.89778 9.88445ZM9.36889 27.5556V12.6756H4.44444V27.5556H9.36889Z" fill="currentColor" fill-opacity="0.8"/>
+            </svg>              
+            </a>
+          </div>
+
+        <!-- Github -->
+          <div class=" socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://github.com/tomassvedlund" target="_blank" rel="noopener noreferrer">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 0C13.8989 0 11.8183 0.424127 9.87706 1.24817C7.93586 2.0722 6.17203 3.28001 4.68629 4.80264C1.68571 7.87772 0 12.0484 0 16.3972C0 23.6448 4.592 29.7938 10.944 31.9746C11.744 32.1058 12 31.5975 12 31.1547V28.3836C7.568 29.3674 6.624 26.1864 6.624 26.1864C5.888 24.2843 4.848 23.776 4.848 23.776C3.392 22.7594 4.96 22.7922 4.96 22.7922C6.56 22.9069 7.408 24.4811 7.408 24.4811C8.8 26.9734 11.152 26.2356 12.064 25.842C12.208 24.7762 12.624 24.0547 13.072 23.6448C9.52 23.2349 5.792 21.8247 5.792 15.5774C5.792 13.7573 6.4 12.2979 7.44 11.1337C7.28 10.7238 6.72 9.01848 7.6 6.80485C7.6 6.80485 8.944 6.36213 12 8.47737C13.264 8.11663 14.64 7.93626 16 7.93626C17.36 7.93626 18.736 8.11663 20 8.47737C23.056 6.36213 24.4 6.80485 24.4 6.80485C25.28 9.01848 24.72 10.7238 24.56 11.1337C25.6 12.2979 26.208 13.7573 26.208 15.5774C26.208 21.8411 22.464 23.2185 18.896 23.6284C19.472 24.1367 20 25.137 20 26.6619V31.1547C20 31.5975 20.256 32.1222 21.072 31.9746C27.424 29.7774 32 23.6448 32 16.3972C32 14.2439 31.5861 12.1117 30.7821 10.1223C29.978 8.13288 28.7994 6.32526 27.3137 4.80264C25.828 3.28001 24.0641 2.0722 22.1229 1.24817C20.1817 0.424127 18.1012 0 16 0Z" fill="currentColor" fill-opacity="0.8"/>
+            </svg>              
+            </a>
+          </div>
+
+      </div>
+
+    </div>
+
+
+   </section>
+
+
+
+
+   <!-- Main Content About Page -->
+   <section id="about" data-label="om" class="flex flex-col justify-center items-center  rounded-tl-4xl lg:ml-24 mt-24 max-w-full max-h-full p-3 md:p-6">
+
+        <!-- Cover Image -->
+        <div class="max-w-full max-h-full relative text-white ">
+            <figure class="">
+                <img class="rounded-4xl" src="assets/images/about-cover-image.jpg" alt="" draggable="false" oncontextmenu="return false;">
+            </figure>
+
+            <div>
+                <div class="text-center absolute xl:top-60 xl:right-60 lg:top-30 lg:right-20 md:top-30 top-20 right-6 ">
+                    <h1 class=" font-semibold text-center w-full bg-portfolio-black-bread rounded-lg px-2 py-1">
+                    Om Tomas
+                    </h1>
+                  </div>
+            </div>
+
+        </div>
+
+        <!-- About section -->
+        <div class="w-full n flex justify-center flex-wrap lg:flex-nowrap text-portfolio-light mt-6 xl:mt-24">
+
+            <!-- GRID x 4 -->
+            <div class="w-full  flex md:flex-row justify-center lg:max-w-md lg:justify-start lg:flex-col lg:pr-6 lg:min-w-sm lg:mb-0 gap-6 text-center flex-wrap mb-12 ">
+                
+                <!-- CV Block -->
+                <div class="max-w-auto gap-6 w-full md:min-w-xs md:max-w-xs lg:w-full lg:max-w-sm p-3 md:p-6 text-portfolio-black-bread rounded-4xl flex flex-col lg:flex-row lg:items-start">
+
+                  <!-- SVG -->
+                  <div class="max-w-full flex flex-col lg:flex-row justify-start items-center gap-4 ">
+                    <figure >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m.75 12 3 3m0 0 3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                      </svg>                                        
+                    </figure>
+                  </div>
+                  
+                  <!-- Text & Link -->
+                  <div class="flex flex-col items-center lg:items-start text-center lg:text-start w-full h-full">
+
+                    <div class="w-full flex justify-center lg:justify-start">
+                      <h2 class="font-semibold font-headings uppercase  max-w-full border-b-4 border-portfolio-green px-1 mb-3">CV</h2>
+                    </div>
+
+                    <span class="text-lg md:text-xl 2xl:text-2xl text-wrap">Här kan du ladda <br> ner mitt CV.</span>
+                      
+                    <a href="assets/pdf/cv.pdf" download class=" button-bounce mt-4 inline-flex items-center gap-2 px-4 py-2 font-headings font-semibold uppercase text-xl bg-portfolio-green text-portfolio-light hover:text-portfolio-black-bread rounded-xl hover:bg-portfolio-light transition">
+                        Ladda ner
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+                        </svg>
+                    </a>
+                  </div>
+
+                </div>
+                
+                <!-- Education Block -->
+                <div class="max-w-auto gap-6 w-full md:min-w-xs md:max-w-xs lg:w-full lg:max-w-sm p-3 md:p-6 text-portfolio-black-bread rounded-4xl flex flex-col lg:flex-row lg:items-start">
+
+                  <!-- SVG -->
+                  <div class="max-w-full flex flex-col lg:flex-row justify-start items-center gap-4 ">
+                    <figure >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
+                      </svg>                      
+                    </figure>
+                  </div>
+                  
+                  <!-- Text & Link -->
+                  <div class="flex flex-col items-center lg:items-start text-center lg:text-start w-full h-full">
+
+                    <div class="w-full flex justify-center lg:justify-start">
+                      <h2 class="font-semibold font-headings uppercase  max-w-full border-b-4 border-portfolio-green px-1 mb-3">
+                        Utbildningar
+                      </h2>
+                    </div>
+                      
+                    <ul class="text-lg md:text-xl 2xl:text-2xl text-wrap">
+                      <li class="mb-2"><strong>Webbdesign & Webbutveckling</strong> <br>Karlskoga Folkhögskola <br>augusti 2024 - maj 2025</li>
+                      <li class="mb-2"> <strong>Fotografi</strong> <br>Sörängens Folkhögskola <br>januari 2024 - december 2024</li>
+                    </ul>
+
+                  </div>
+
+                </div>
+
+                <!-- Stack Block -->
+                <div class="max-w-auto gap-6 w-full md:min-w-xs md:max-w-xs lg:w-full lg:max-w-sm p-3 md:p-6 text-portfolio-black-bread rounded-4xl flex flex-col lg:flex-row lg:items-start">
+
+                  <!-- SVG -->
+                  <div class="max-w-full flex flex-col lg:flex-row justify-start items-center gap-4 ">
+                    <figure >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
+                      </svg>                                          
+                    </figure>
+                  </div>
+                  
+                  <!-- Text & Link -->
+                  <div class="flex flex-col items-center lg:items-start text-center lg:text-start w-full h-full">
+
+                    <div class="w-full flex justify-center lg:justify-start">
+                      <h2 class="font-semibold font-headings uppercase  max-w-full border-b-4 border-portfolio-green px-1 mb-3">
+                        Stack
+                      </h2>
+                    </div>
+                      
+                    <ul class="text-lg 2xl:text-2xl text-left">
+                      <li>Visual Studio Code</li>
+                      <li>Figma</li>
+                      <li>Local</li>
+                      <li>Adobe Photoshop</li>
+                      <li>Adobe Lightroom</li>
+                      <li>Adobe Illustrator</li>
+                  </ul>
+                  </div>
+
+                </div>
+
+
+                <!-- Gear Block -->
+                <div class="max-w-auto gap-6 w-full md:min-w-xs md:max-w-xs lg:w-full lg:max-w-sm p-3 md:p-6 text-portfolio-black-bread rounded-4xl flex flex-col lg:flex-row lg:items-start">
+
+                  <!-- SVG -->
+                  <div class="max-w-full flex flex-col lg:flex-row justify-start items-center gap-4 ">
+                    <figure >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m20.893 13.393-1.135-1.135a2.252 2.252 0 0 1-.421-.585l-1.08-2.16a.414.414 0 0 0-.663-.107.827.827 0 0 1-.812.21l-1.273-.363a.89.89 0 0 0-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 0 1-1.81 1.025 1.055 1.055 0 0 1-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 0 1-1.383-2.46l.007-.042a2.25 2.25 0 0 1 .29-.787l.09-.15a2.25 2.25 0 0 1 2.37-1.048l1.178.236a1.125 1.125 0 0 0 1.302-.795l.208-.73a1.125 1.125 0 0 0-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 0 1-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 0 1-1.458-1.137l1.411-2.353a2.25 2.25 0 0 0 .286-.76m11.928 9.869A9 9 0 0 0 8.965 3.525m11.928 9.868A9 9 0 1 1 8.965 3.525" />
+                      </svg>                      
+                    </figure>
+                  </div>
+                  
+                  <!-- Text & Link -->
+                  <div class="flex flex-col items-center lg:items-start text-center lg:text-start w-full h-full">
+
+                    <div class="w-full flex justify-center lg:justify-start">
+                      <h2 class="font-semibold font-headings uppercase  max-w-full border-b-4 border-portfolio-green px-1 mb-3">
+                        Ekosystem
+                      </h2>
+                    </div>
+                      
+                    <ul class="text-lg 2xl:text-2xl text-left">
+                      <li>Apple</li>
+                      <li>Canon</li>
+                      <li>Fujifilm</li>
+                      <li>OM System</li>
+                      <li>DJI</li>
+                    </ul>
+                  </div>
+
+                </div>
+
+            </div>
+
+            <!-- About me -->
+            <div class="order-first lg:order-last p-3 gap-6 lg:pb-12 md:p-6 lg:py-6 lg:px-12 max-w-2xl lg:max-w-3xl text-portfolio-black-bread h-full rounded-4xl text-center flex flex-col lg:flex-row lg:items-start">
+                
+              <!-- SVG -->
+              <div class="max-w-full flex flex-col lg:flex-row justify-start items-center gap-4 ">
+                <figure>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                  </svg>                  
+                </figure>
+              </div>
+
+              <!-- TEXT -->
+              <div class="flex flex-col items-center lg:items-start text-center lg:text-start w-full h-full">
+
+                <div class="w-full flex justify-center">
+                  <h2 class="   max-w-full border-b-4 border-portfolio-green px-1 mb-6">
+                    Om mig
+                  </h2>
+                </div>
+
+                <p class="">Jag är en fotograf och webbdesigner under utbildning, baserad i Värmland med en passion för visuellt berättande. Genom kameran och diverse program skapar jag bilder och digitala upplevelser som engagerar och förmedlar en känsla.
+
+                    Min fotografering sträcker sig från streetfoto i Karlstad till drönarbilder över landskap, fordon och historiska miljöer. Jag fascineras av strukturer, ljus och detaljer – de små elementen som tillsammans skapar en större helhet.
+                    
+                    <br><br>Utöver fotograferingen har jag min nyblivna passion där jag bygger skräddarsydda webbplatser och digitala identiteter. Jag tror på minimalistisk design med tydliga budskap och smarta lösningar, där varje hemsida ska vara både estetiskt tilltalande och funktionell.
+                    
+                    <br>Med en nybliven utbildning inom grafisk profilering och webbutveckling så är min ambition att hjälpa företag och kreatörer att synas på rätt sätt. Jag är särskilt engagerad i att stötta nystartade verksamheter genom att skapa starka visuella uttryck som håller över tid. <br> Mina framtida planer är att antingen börja jobba med ett härligt team på en befintlig webbyrå, alternativt att starta eget företag som kombinerar webben och fotograferandet.
+                    
+                    <br><br>Vill du samarbeta i något projekt eller behöver din webbyrå en extra person? Eller vill du bara prata foto och design? <a href="contact.html#form" class="uppercase hover:text-portfolio-green transition"><strong>Kontakta mig!</strong></a></p>
+              </div>
+            </div>
+
+        </div>
+
+    </section>
+
+   <!-- Site Footer --> 
+   <footer class="bottom-0 footer-full footer-small rounded-tr-4xl min-w-0 pr-3 lg:pr-6 with-notch-footer lg:pl-24  max-w-full max-h-full lg:h-24 text-portfolio-light flex flex-col justify-between items-center bg-portfolio-black-bread">
+     
+    <!-- Copyright & Socials -->
+    <div class="flex flex-col justify-center items-center w-full h-full  px-0 ">
+      
+      <!-- Footer Socials -->
+      <div class="flex lg:hidden gap-8 text-portfolio-light  mt-6 mb-4">
+
+
+        <!-- Instagram -->
+          <div class="socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://www.instagram.com/tomas.svedlund/" class="" target="_blank" rel="noopener noreferrer">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.28 0H22.72C27.84 0 32 4.16 32 9.28V22.72C32 25.1812 31.0223 27.5416 29.282 29.282C27.5416 31.0223 25.1812 32 22.72 32H9.28C4.16 32 0 27.84 0 22.72V9.28C0 6.81879 0.977712 4.45839 2.71805 2.71805C4.45839 0.977712 6.81879 0 9.28 0ZM8.96 3.2C7.43235 3.2 5.96727 3.80686 4.88707 4.88707C3.80686 5.96727 3.2 7.43235 3.2 8.96V23.04C3.2 26.224 5.776 28.8 8.96 28.8H23.04C24.5676 28.8 26.0327 28.1931 27.1129 27.1129C28.1931 26.0327 28.8 24.5676 28.8 23.04V8.96C28.8 5.776 26.224 3.2 23.04 3.2H8.96ZM24.4 5.6C24.9304 5.6 25.4391 5.81071 25.8142 6.18579C26.1893 6.56086 26.4 7.06957 26.4 7.6C26.4 8.13043 26.1893 8.63914 25.8142 9.01421C25.4391 9.38929 24.9304 9.6 24.4 9.6C23.8696 9.6 23.3609 9.38929 22.9858 9.01421C22.6107 8.63914 22.4 8.13043 22.4 7.6C22.4 7.06957 22.6107 6.56086 22.9858 6.18579C23.3609 5.81071 23.8696 5.6 24.4 5.6ZM16 8C18.1217 8 20.1566 8.84285 21.6569 10.3431C23.1571 11.8434 24 13.8783 24 16C24 18.1217 23.1571 20.1566 21.6569 21.6569C20.1566 23.1571 18.1217 24 16 24C13.8783 24 11.8434 23.1571 10.3431 21.6569C8.84285 20.1566 8 18.1217 8 16C8 13.8783 8.84285 11.8434 10.3431 10.3431C11.8434 8.84285 13.8783 8 16 8ZM16 11.2C14.727 11.2 13.5061 11.7057 12.6059 12.6059C11.7057 13.5061 11.2 14.727 11.2 16C11.2 17.273 11.7057 18.4939 12.6059 19.3941C13.5061 20.2943 14.727 20.8 16 20.8C17.273 20.8 18.4939 20.2943 19.3941 19.3941C20.2943 18.4939 20.8 17.273 20.8 16C20.8 14.727 20.2943 13.5061 19.3941 12.6059C18.4939 11.7057 17.273 11.2 16 11.2Z" fill="currentColor" fill-opacity="0.8"/>
+              </svg>                
+            </a>
+
+          </div>
+
+        <!-- Facebook -->
+          <div class="socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://www.facebook.com/tomas.svedlund/?locale=sv_SE" target="_blank" rel="noopener noreferrer">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 0C7.19999 0 0 7.21285 0 16.0964C0 24.1285 5.85599 30.7952 13.504 32V20.755H9.43999V16.0964H13.504V12.5462C13.504 8.51406 15.888 6.29719 19.552 6.29719C21.296 6.29719 23.12 6.60241 23.12 6.60241V10.5703H21.104C19.12 10.5703 18.496 11.8072 18.496 13.0763V16.0964H22.944L22.224 20.755H18.496V32C22.2663 31.4022 25.6995 29.4707 28.1758 26.5543C30.6522 23.6379 32.0085 19.9287 32 16.0964C32 7.21285 24.8 0 16 0Z" fill="currentColor" fill-opacity="0.8"/>
+              </svg>                
+            </a>
+
+          </div>
+
+        <!-- Linkedin -->
+          <div class="socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://www.linkedin.com/in/tomas-svedlund-599447263/" target="_blank" rel="noopener noreferrer">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M28.4444 0C29.3874 0 30.2918 0.374602 30.9586 1.0414C31.6254 1.70819 32 2.61256 32 3.55556V28.4444C32 29.3874 31.6254 30.2918 30.9586 30.9586C30.2918 31.6254 29.3874 32 28.4444 32H3.55556C2.61256 32 1.70819 31.6254 1.0414 30.9586C0.374602 30.2918 0 29.3874 0 28.4444V3.55556C0 2.61256 0.374602 1.70819 1.0414 1.0414C1.70819 0.374602 2.61256 0 3.55556 0H28.4444ZM27.5556 27.5556V18.1333C27.5556 16.5963 26.945 15.1221 25.8581 14.0353C24.7712 12.9484 23.2971 12.3378 21.76 12.3378C20.2489 12.3378 18.4889 13.2622 17.6356 14.6489V12.6756H12.6756V27.5556H17.6356V18.7911C17.6356 17.4222 18.7378 16.3022 20.1067 16.3022C20.7668 16.3022 21.3998 16.5644 21.8666 17.0312C22.3333 17.498 22.5956 18.131 22.5956 18.7911V27.5556H27.5556ZM6.89778 9.88445C7.68989 9.88445 8.44956 9.56978 9.00967 9.00967C9.56978 8.44956 9.88445 7.68989 9.88445 6.89778C9.88445 5.24444 8.55111 3.89333 6.89778 3.89333C6.10095 3.89333 5.33676 4.20987 4.77331 4.77331C4.20987 5.33676 3.89333 6.10095 3.89333 6.89778C3.89333 8.55111 5.24444 9.88445 6.89778 9.88445ZM9.36889 27.5556V12.6756H4.44444V27.5556H9.36889Z" fill="currentColor" fill-opacity="0.8"/>
+              </svg>                
+            </a>
+          </div>
+
+        <!-- Github -->
+          <div class="socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://github.com/tomassvedlund" target="_blank" rel="noopener noreferrer">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="" xmlns="http://www.w3.org/2000/svg" class="">
+                <path d="M16 0C13.8989 0 11.8183 0.424127 9.87706 1.24817C7.93586 2.0722 6.17203 3.28001 4.68629 4.80264C1.68571 7.87772 0 12.0484 0 16.3972C0 23.6448 4.592 29.7938 10.944 31.9746C11.744 32.1058 12 31.5975 12 31.1547V28.3836C7.568 29.3674 6.624 26.1864 6.624 26.1864C5.888 24.2843 4.848 23.776 4.848 23.776C3.392 22.7594 4.96 22.7922 4.96 22.7922C6.56 22.9069 7.408 24.4811 7.408 24.4811C8.8 26.9734 11.152 26.2356 12.064 25.842C12.208 24.7762 12.624 24.0547 13.072 23.6448C9.52 23.2349 5.792 21.8247 5.792 15.5774C5.792 13.7573 6.4 12.2979 7.44 11.1337C7.28 10.7238 6.72 9.01848 7.6 6.80485C7.6 6.80485 8.944 6.36213 12 8.47737C13.264 8.11663 14.64 7.93626 16 7.93626C17.36 7.93626 18.736 8.11663 20 8.47737C23.056 6.36213 24.4 6.80485 24.4 6.80485C25.28 9.01848 24.72 10.7238 24.56 11.1337C25.6 12.2979 26.208 13.7573 26.208 15.5774C26.208 21.8411 22.464 23.2185 18.896 23.6284C19.472 24.1367 20 25.137 20 26.6619V31.1547C20 31.5975 20.256 32.1222 21.072 31.9746C27.424 29.7774 32 23.6448 32 16.3972C32 14.2439 31.5861 12.1117 30.7821 10.1223C29.978 8.13288 28.7994 6.32526 27.3137 4.80264C25.828 3.28001 24.0641 2.0722 22.1229 1.24817C20.1817 0.424127 18.1012 0 16 0Z" fill="currentColor" fill-opacity="0.8"/>
+              </svg>                
+            </a>
+          </div>
+
+      </div>
+
+      <!-- Copyright -->
+      <div class="mb-6 pt-0 px-3 md:px-6 lg:pt-6 text-center">
+         <span class=" text-wrap md:text-nowrap  font-paragraph text-portfolio-light text-md sm:text-xl ">Copyright Tomas Svedlund 2025. Alla rättigheter reserverade.</span>
+      </div>
+
+
+
+    </div>
+
+  </footer>
+
+
+
+</div>
+</body>
+</html>

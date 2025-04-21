@@ -1,0 +1,414 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Tomas Svedlund</title>
+
+  <!-- Styles -->
+  <link href="./style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <!-- Scripts -->
+  <script src="./js/date.js" defer></script>
+  <script src="./js/clock.js" defer></script>
+  <script src="./js/sidebar-indicator.js" defer></script>
+  <script src="./js/hero-change.js" defer></script>
+  <script src="./js/map.js" defer></script>
+  <script src="./js/responsive-menu.js" defer></script>
+  <script src="./js/gallery-lightbox.js" defer></script>
+  <!-- <script src="./js/hidden-socials.js" defer></script> -->
+    
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+
+</head>
+<body class="">
+<div class="app relative space-y-12 md:space-y-24 ">
+
+
+
+
+  <!-- Site Header -->
+  <header class=" header-small header-full with-notch w-full lg:pr-6 h-24 bg-portfolio-black-bread text-white grid grid-cols-1 md:grid-cols-[auto_auto_1fr] pl-28 items-center fixed top-0 z-50  min-w-0 rounded-br-4xl">
+
+
+    <!-- Logo -->
+    <div class="fixed px-6 lg:p-0 lg:top-5 lg:left-5 lg:pr-12 ">
+      <a href="index.html">
+        <img src="assets/images/logo-big.png" alt="Logo" class=" w-14 md:w-18 lg:w-20 hover:duration-300 hover:scale-110 hover:shadow-2xl">
+      </a>
+    </div>
+
+    <!-- Based in -->
+    <a href="contact.html#map-karlstad" class="hidden h-full md:flex flex-col justify-center px-6 overflow-hidden min-w-0">
+      <span class="text-portfolio-gray font-paragraph">Verksam i:</span>
+      <span class="text-portfolio-light font-headings text-2xl font-semibold whitespace-nowrap">Karlstad, Värmland</span>
+    </a>
+
+    <!-- Local Time -->
+    <div class=" hidden h-full md:flex flex-col justify-center items-center p-6 overflow-hidden min-w-0 text-center">
+      <span class="text-portfolio-gray font-paragraph">Lokal tid:</span>
+      <span id="clock" class="text-portfolio-light font-headings text-2xl font-semibold"></span>
+    </div>
+
+    <!-- Menu -->
+    <div class="hidden h-full lg:flex items-center justify-end  min-w-0">
+      <nav class="">
+        <ul class="flex flex-wrap justify-end items-center gap-6 text-2xl font-semibold ">
+          <li class=""><a href="index.html">Hem</a></li>
+          <li class="border-4 border-portfolio-green px-2 py-1 rounded-xl"><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="about.html">Om</a></li>
+          <li><a href="contact.html">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- MENU BUTTON -->
+    <button id="menu-button" class="menu-button">
+      <svg class="" width="36" height="24" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 12V10H18V12H0ZM0 7V5H18V7H0ZM0 2V0H18V2H0Z" fill="currentColor"/>
+      </svg>
+    </button>
+
+    <!-- Responsive menu -->
+
+      <nav class="responsive-menu lg:hidden bg-portfolio-black-bread">
+        <ul class="responsive-menu__list text-portfolio-light text-2xl ">
+          <li class=""><a href="index.html" class="responsive-menu__list-link">Hem</a></li>
+          <li><a href="portfolio.html" class="responsive-menu__list-link">Portfolio</a></li>
+          <li><a href="about.html" class="responsive-menu__list-link">Om</a></li>
+          <li><a href="contact.html" class="responsive-menu__list-link">Kontakt</a></li>
+        </ul>
+      </nav>
+
+
+  </header>
+
+  <!-- Sidebar Navigation -->
+   <section class=" hidden lg:block fixed left-0 top-24 bg-portfolio-black-bread w-24 h-screen z-40 max-w-24 p-0">
+    
+    <div class="text-4xl text-portfolio-light h-full font-headings font-semibold flex flex-col items-center pt-40">
+      
+      <!-- Changing section text -->
+      <span id="section-indicator" class="max-h-full rotate-270 flex items-center uppercase transition duration-300">
+        portfolio
+      </span>
+
+      <!-- Sidebar Socials -->
+      <div id="sidebar-socials" class=" w-full h-full flex flex-col items-center justify-end pb-56 gap-8 z-50 ">
+
+        <!-- Instagram -->
+          <div class="socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://www.instagram.com/tomas.svedlund/" class="" target="_blank" rel="noopener noreferrer">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.28 0H22.72C27.84 0 32 4.16 32 9.28V22.72C32 25.1812 31.0223 27.5416 29.282 29.282C27.5416 31.0223 25.1812 32 22.72 32H9.28C4.16 32 0 27.84 0 22.72V9.28C0 6.81879 0.977712 4.45839 2.71805 2.71805C4.45839 0.977712 6.81879 0 9.28 0ZM8.96 3.2C7.43235 3.2 5.96727 3.80686 4.88707 4.88707C3.80686 5.96727 3.2 7.43235 3.2 8.96V23.04C3.2 26.224 5.776 28.8 8.96 28.8H23.04C24.5676 28.8 26.0327 28.1931 27.1129 27.1129C28.1931 26.0327 28.8 24.5676 28.8 23.04V8.96C28.8 5.776 26.224 3.2 23.04 3.2H8.96ZM24.4 5.6C24.9304 5.6 25.4391 5.81071 25.8142 6.18579C26.1893 6.56086 26.4 7.06957 26.4 7.6C26.4 8.13043 26.1893 8.63914 25.8142 9.01421C25.4391 9.38929 24.9304 9.6 24.4 9.6C23.8696 9.6 23.3609 9.38929 22.9858 9.01421C22.6107 8.63914 22.4 8.13043 22.4 7.6C22.4 7.06957 22.6107 6.56086 22.9858 6.18579C23.3609 5.81071 23.8696 5.6 24.4 5.6ZM16 8C18.1217 8 20.1566 8.84285 21.6569 10.3431C23.1571 11.8434 24 13.8783 24 16C24 18.1217 23.1571 20.1566 21.6569 21.6569C20.1566 23.1571 18.1217 24 16 24C13.8783 24 11.8434 23.1571 10.3431 21.6569C8.84285 20.1566 8 18.1217 8 16C8 13.8783 8.84285 11.8434 10.3431 10.3431C11.8434 8.84285 13.8783 8 16 8ZM16 11.2C14.727 11.2 13.5061 11.7057 12.6059 12.6059C11.7057 13.5061 11.2 14.727 11.2 16C11.2 17.273 11.7057 18.4939 12.6059 19.3941C13.5061 20.2943 14.727 20.8 16 20.8C17.273 20.8 18.4939 20.2943 19.3941 19.3941C20.2943 18.4939 20.8 17.273 20.8 16C20.8 14.727 20.2943 13.5061 19.3941 12.6059C18.4939 11.7057 17.273 11.2 16 11.2Z" fill="currentColor" fill-opacity="0.8"/>
+            </svg>              
+            </a>
+
+          </div>
+
+        <!-- Facebook -->
+          <div class="socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://www.facebook.com/tomas.svedlund/?locale=sv_SE" target="_blank" rel="noopener noreferrer">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 0C7.19999 0 0 7.21285 0 16.0964C0 24.1285 5.85599 30.7952 13.504 32V20.755H9.43999V16.0964H13.504V12.5462C13.504 8.51406 15.888 6.29719 19.552 6.29719C21.296 6.29719 23.12 6.60241 23.12 6.60241V10.5703H21.104C19.12 10.5703 18.496 11.8072 18.496 13.0763V16.0964H22.944L22.224 20.755H18.496V32C22.2663 31.4022 25.6995 29.4707 28.1758 26.5543C30.6522 23.6379 32.0085 19.9287 32 16.0964C32 7.21285 24.8 0 16 0Z" fill="currentColor" fill-opacity="0.8"/>
+            </svg>              
+            </a>
+
+          </div>
+
+        <!-- Linkedin -->
+          <div class="socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://www.linkedin.com/in/tomas-svedlund-599447263/" target="_blank" rel="noopener noreferrer">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M28.4444 0C29.3874 0 30.2918 0.374602 30.9586 1.0414C31.6254 1.70819 32 2.61256 32 3.55556V28.4444C32 29.3874 31.6254 30.2918 30.9586 30.9586C30.2918 31.6254 29.3874 32 28.4444 32H3.55556C2.61256 32 1.70819 31.6254 1.0414 30.9586C0.374602 30.2918 0 29.3874 0 28.4444V3.55556C0 2.61256 0.374602 1.70819 1.0414 1.0414C1.70819 0.374602 2.61256 0 3.55556 0H28.4444ZM27.5556 27.5556V18.1333C27.5556 16.5963 26.945 15.1221 25.8581 14.0353C24.7712 12.9484 23.2971 12.3378 21.76 12.3378C20.2489 12.3378 18.4889 13.2622 17.6356 14.6489V12.6756H12.6756V27.5556H17.6356V18.7911C17.6356 17.4222 18.7378 16.3022 20.1067 16.3022C20.7668 16.3022 21.3998 16.5644 21.8666 17.0312C22.3333 17.498 22.5956 18.131 22.5956 18.7911V27.5556H27.5556ZM6.89778 9.88445C7.68989 9.88445 8.44956 9.56978 9.00967 9.00967C9.56978 8.44956 9.88445 7.68989 9.88445 6.89778C9.88445 5.24444 8.55111 3.89333 6.89778 3.89333C6.10095 3.89333 5.33676 4.20987 4.77331 4.77331C4.20987 5.33676 3.89333 6.10095 3.89333 6.89778C3.89333 8.55111 5.24444 9.88445 6.89778 9.88445ZM9.36889 27.5556V12.6756H4.44444V27.5556H9.36889Z" fill="currentColor" fill-opacity="0.8"/>
+            </svg>              
+            </a>
+          </div>
+
+        <!-- Github -->
+          <div class=" socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://github.com/tomassvedlund" target="_blank" rel="noopener noreferrer">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 0C13.8989 0 11.8183 0.424127 9.87706 1.24817C7.93586 2.0722 6.17203 3.28001 4.68629 4.80264C1.68571 7.87772 0 12.0484 0 16.3972C0 23.6448 4.592 29.7938 10.944 31.9746C11.744 32.1058 12 31.5975 12 31.1547V28.3836C7.568 29.3674 6.624 26.1864 6.624 26.1864C5.888 24.2843 4.848 23.776 4.848 23.776C3.392 22.7594 4.96 22.7922 4.96 22.7922C6.56 22.9069 7.408 24.4811 7.408 24.4811C8.8 26.9734 11.152 26.2356 12.064 25.842C12.208 24.7762 12.624 24.0547 13.072 23.6448C9.52 23.2349 5.792 21.8247 5.792 15.5774C5.792 13.7573 6.4 12.2979 7.44 11.1337C7.28 10.7238 6.72 9.01848 7.6 6.80485C7.6 6.80485 8.944 6.36213 12 8.47737C13.264 8.11663 14.64 7.93626 16 7.93626C17.36 7.93626 18.736 8.11663 20 8.47737C23.056 6.36213 24.4 6.80485 24.4 6.80485C25.28 9.01848 24.72 10.7238 24.56 11.1337C25.6 12.2979 26.208 13.7573 26.208 15.5774C26.208 21.8411 22.464 23.2185 18.896 23.6284C19.472 24.1367 20 25.137 20 26.6619V31.1547C20 31.5975 20.256 32.1222 21.072 31.9746C27.424 29.7774 32 23.6448 32 16.3972C32 14.2439 31.5861 12.1117 30.7821 10.1223C29.978 8.13288 28.7994 6.32526 27.3137 4.80264C25.828 3.28001 24.0641 2.0722 22.1229 1.24817C20.1817 0.424127 18.1012 0 16 0Z" fill="currentColor" fill-opacity="0.8"/>
+            </svg>              
+            </a>
+          </div>
+
+      </div>
+
+    </div>
+
+
+   </section>
+
+
+
+    <!-- Portfolio Cover -->
+    <section id="portfolio" data-label="portfolio" class="flex flex-col justify-center items-center rounded-tl-4xl lg:ml-24 mt-24 max-w-full max-h-full px-3 pt-3 md:px-6 md:pt-6">
+        
+        <!-- Cover Image -->
+        <div class="w-full max-h-full relative text-white">
+            <figure class="">
+                <img class="rounded-4xl w-full" src="assets/images/portfolio-cover.jpg" alt="" draggable="false" oncontextmenu="return false;">
+            </figure>
+
+            <div>
+                <div class="text-center absolute xl:top-60 xl:right-60 lg:top-30 lg:right-30 md:top-30 top-20 right-6">
+                    <h1 class="font-semibold text-center w-full bg-portfolio-black-bread rounded-lg px-2 py-1" >
+                    Portfolio
+                    </h1>
+                    </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Informationsruta -->
+    <section id="information-portfolio" data-label="information" class="  flex flex-col justify-center items-center rounded-tl-4xl lg:ml-24 max-h-full px-3 pb-3 md:px-6 ">
+      
+      <div class="max-w-3xl flex flex-col justify-center items-center">
+        <h2 class="mb-3 max-w-2xl text-center  text-lg md:text-2xl xl:text-[32px] text-portfolio-black-bread  font-headings font-semibold uppercase border-b-4 border-portfolio-green px-1">
+          Denna webbplats
+        </h2>
+        
+        <div class="max-w-full p-1 flex justify-around items-center  text-portfolio-black-bread rounded-4xl flex-col text-center text-lg md:text-2xl">
+          <p>Den här webbplatsen är skapad av mig från grunden och fungerar både som portfolio och CV. Jag har designat sidan i Figma och därefter byggt den med HTML, CSS (TailwindCSS) och JavaScript.
+  
+            Syftet med projektet är att visa upp mina färdigheter inom webbutveckling, design och fotografi - och att ha en levande plattform som enkelt kan uppdateras och byggas vidare på i takt med att jag utvecklas. <br><br>Vill du ha mitt CV som PDF? Ladda ner det under sidan <a href="about.html" class="uppercase hover:text-portfolio-green transition"> <strong>"Om"</strong> </a> .</p>
+        </div>
+
+      </div>
+    </section>
+
+
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="fixed inset-0 top-30 left-6 lg:left-30 right-6 bg-opacity-25 flex items-center justify-center hidden z-50 bg-cover rounded-4xl max-h-[60vh] sm:max-h-[75vh] md:max-h-full max-w-full" onclick="closeLightbox(event)" style="background-image: url(assets/images/white-wall.jpg);">
+      <div class="bg-portfolio-light p-6 border-8 border-black shadow-md m-3 lg:m-6 " onclick="event.stopPropagation()">
+        <img id="lightbox-img" src="" class="max-w-full md:max-h-[65vh]" draggable="false" oncontextmenu="return false;" />
+      </div>
+      <div class="absolute top-6 right-6 z-60 text-portfolio-black-bread hover:text-portfolio-light transition cursor-pointer">
+        <svg width="28" height="28" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.4 14L0 12.6L5.6 7L0 1.4L1.4 0L7 5.6L12.6 0L14 1.4L8.4 7L14 12.6L12.6 14L7 8.4L1.4 14Z" fill="currentColor"/>
+          </svg>
+          
+      </div>
+    </div>
+
+
+
+
+    <!-- Fotografi Galleri -->
+    <section id="portfolio-photos" data-label="Fotografi" class="relative  flex flex-col justify-center items-center rounded-tl-4xl lg:ml-24 mt-0  max-w-full max-h-full px-3 md:px-6 ">
+      
+      <!-- Gallery Header -->
+        <h2 class="mb-3  max-w-full text-center text-lg md:text-2xl xl:text-[32px] text-portfolio-black-bread mt-0  font-headings font-semibold uppercase border-b-4 border-portfolio-green px-1">
+        Fotografi
+      </h2>
+
+      <!-- Gallery Description -->
+      <div class="max-w-3xl mb-3 md:mb-8 p-1 flex justify-around items-center  text-portfolio-black-bread rounded-4xl flex-col text-center text-lg md:text-2xl">
+        <p>Mitt fotograferande handlar om att fånga detaljer, ljus och känsla. Jag söker det ärliga och lugna i motiven – ofta med fokus på struktur, mönster och miljö. Jag har haft ett par utställningar och fler är på gång. Här visar jag ett urval av bilder från mina projekt, både egna serier och utställningsmaterial.</p>
+      </div>
+
+      <!-- Gallery Images -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4" draggable="false" oncontextmenu="return false;">
+        <div class="grid gap-4">
+            <div class="">
+                <img onclick="openLightbox(this.src)" class="aspect-square object-cover cursor-pointer hover:opacity-80 h-auto max-w-full rounded-lg rounded-tl-4xl" src="assets/images/gallery-1.JPG" alt="A black and white portrait of Stina Löveström">
+            </div>
+            <div>
+                <img onclick="openLightbox(this.src)" class="aspect-square object-cover cursor-pointer hover:opacity-80 h-auto max-w-full rounded-lg" src="assets/images/gallery-2.JPG" alt="Two pictures in one of some lyme grass, with different focus.">
+            </div>
+            <div>
+                <img onclick="openLightbox(this.src)" class="aspect-square object-cover cursor-pointer hover:opacity-80 h-auto max-w-full rounded-lg md:rounded-bl-4xl" src="assets/images/gallery-3.JPG" alt="A picture in black and white, a man and a woman dancing close to eachother at midsummer">
+            </div>
+        </div>
+        <div class="grid gap-4">
+            <div>
+                <img onclick="openLightbox(this.src)" class="aspect-square object-cover cursor-pointer hover:opacity-80 h-auto max-w-full rounded-lg rounded-tr-4xl md:rounded-tr-lg" src="assets/images/gallery-4.JPG" alt="A moving rally car, photographed with slow shutter speed">
+            </div>
+            <div>
+                <img onclick="openLightbox(this.src)" class="aspect-square object-cover cursor-pointer hover:opacity-80 h-auto max-w-full rounded-lg" src="assets/images/gallery-5.JPG" alt="A young man with tattoos on his left arm, standing at a window inside and looking out">
+            </div>
+            <div>
+                <img onclick="openLightbox(this.src)" class="aspect-square object-cover cursor-pointer hover:opacity-80 h-auto max-w-full rounded-lg" src="assets/images/gallery-6.JPG" alt="A man with glasses driving on his blue old classic moped">
+            </div>
+        </div>
+        <div class="grid gap-4">
+            <div>
+                <img onclick="openLightbox(this.src)" class="aspect-square object-cover cursor-pointer hover:opacity-80 h-auto max-w-full rounded-lg" src="assets/images/gallery-7.JPG" alt="An landscape photography taken from the air with a drone, showing Stöpafors in Värmland at golden hour">
+            </div>
+            <div>
+                <img onclick="openLightbox(this.src)" class="aspect-square object-cover cursor-pointer hover:opacity-80 h-auto max-w-full rounded-lg" src="assets/images/gallery-8.JPG" alt="A black and white photo of an american classic car parked under a tree">
+            </div>
+            <div>
+                <img onclick="openLightbox(this.src)" class="aspect-square object-cover cursor-pointer hover:opacity-80 h-auto max-w-full rounded-lg rounded-bl-4xl md:rounded-bl-lg" src="assets/images/gallery-9.JPG" alt="A orange and dark picture out of focus, with the text: til death, we do art">
+            </div>
+        </div>
+        <div class="grid gap-4">
+            <div>
+                <img onclick="openLightbox(this.src)" class="aspect-square object-cover cursor-pointer hover:opacity-80 h-auto max-w-full rounded-lg md:rounded-tr-4xl" src="assets/images/gallery-10.JPG" alt="A black and white portrait of a dog in snowy conditions">
+            </div>
+            <div>
+                <img onclick="openLightbox(this.src)" class="aspect-square object-cover cursor-pointer hover:opacity-80 h-auto max-w-full rounded-lg" src="assets/images/gallery-11.JPG" alt="A picture taken with a drone from above, showing some water and ice and the text: A split moment">
+            </div>
+            <div>
+                <img onclick="openLightbox(this.src)" class="aspect-square object-cover cursor-pointer hover:opacity-80 h-auto max-w-full rounded-lg rounded-br-4xl" src="assets/images/gallery-12.JPG" alt="A picture of an young man holding a camera, standing at Njupeskär waterfalls in Sweden">
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- Webbdesign/Webbutveckling -->
+    <section id="webb" data-label="Webb" class="portfolio-gallery lg:ml-24 px-3 md:px-6 max-w-full max-h-full bg-gradient-to-b flex items-center mt-0 justify-center flex-col">
+      <h2 class="mb-3  max-w-2xl text-center   text-lg md:text-2xl xl:text-[32px] text-portfolio-black-bread mt-6  font-headings font-semibold uppercase  border-b-4 border-portfolio-green px-1">
+        Webbdesign // Webbutveckling
+      </h2>
+
+      <!-- Webb Description -->
+      <div class="max-w-3xl mb-3 md:mb-8 p-1 flex justify-around items-center  text-portfolio-black-bread rounded-4xl flex-col text-center text-lg md:text-2xl">
+        <p>Jag bygger hemsidor med fokus på design, funktion och användarvänlighet. Genom moderna verktyg som Tailwind CSS och WordPress skapar jag responsiva webbplatser från grunden. Projekten här är främst skoluppgifter med målet att hålla en professionell nivå.</p>
+      </div>
+
+      <!-- Gallery -->
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 ">
+        
+        <!-- Gallery 1 -->
+        <a href="https://www.figma.com/proto/hXgxJDrouJvhMeWAcmWdSV/Photos---Coffee?node-id=16-15&t=RvDSihbjUtJ3ZqXb-1" target="_blank" rel="noopener noreferrer" class="relative hover:scale-102 duration-200">
+            <span class="image-text image-text-tl md:rounded-bl-4xl rounded-lg text-md sm:text-lg md:text-2xl xl:text-3xl font-headings uppercase font-semibold text-portfolio-light text-center">Skoluppgift: <br> Eget projekt</span>
+            <img class="h-auto max-w-full rounded-lg rounded-tl-4xl md:rounded-bl-4xl aspect-[4/3] overflow-hidden object-cover" src="assets/images/photosandcoffee_printscreen.jpg" alt="">
+        </a>
+
+        <!-- Gallery 2 -->
+        <a href="#information-portfolio" class="relative hover:scale-102 duration-200">
+            <span class="image-text rounded-lg rounded-tr-4xl md:rounded-tr-lg text-md sm:text-lg md:text-2xl xl:text-3xl font-headings uppercase font-semibold text-portfolio-light text-center">Skoluppgift: <br> Portfolio </span>
+            <img class="h-auto max-w-full rounded-lg rounded-tr-4xl md:rounded-tr-lg aspect-[4/3] overflow-hidden object-cover" src="assets/images/portfolio_printscreen.jpg" alt="">
+        </a>
+
+        <!-- Gallery 3 -->
+        <a href="https://github.com/tomassvedlund" target="_blank" rel="noopener noreferrer" class="relative hover:scale-102 duration-200 noopener noreferrer">
+            <span class="image-text rounded-lg md:rounded-tr-4xl md:rounded-br-4xl rounded-bl-4xl md:rounded-bl-lg object-cover overflow-hidden w-full h-full text-md sm:text-lg md:text-2xl xl:text-3xl font-headings uppercase font-semibold text-portfolio-light text-center">Se min kod på <br> Github!</span>
+            <img class="h-auto max-w-full rounded-lg md:rounded-tr-4xl md:rounded-br-4xl rounded-bl-4xl md:rounded-bl-lg aspect-[4/3] overflow-hidden object-cover" src="assets/images/github.jpg" alt="">
+        </a>
+
+        <!-- Gallery 4 / Hidden at big screen -->
+        <a href="contact.html"  class="md:hidden relative hover:scale-102 duration-200">
+            <span class="image-text rounded-lg md:rounded-tr-4xl md:rounded-br-4xl rounded-br-4xl   object-cover overflow-hidden w-full h-full text-md sm:text-lg md:text-2xl xl:text-3xl font-headings uppercase font-semibold text-portfolio-light text-center">Din framtida hemsida?</span>
+            <img class="h-auto max-w-full rounded-lg md:rounded-tr-4xl md:rounded-br-4xl rounded-br-4xl aspect-[4/3] overflow-hidden object-cover" src="assets/images/vsc-image-1.jpg" alt="">
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Grafisk Design -->
+    <section id="graphics" data-label="Grafiskt" class=" lg:ml-24 px-3 md:px-6 max-w-full max-h-full bg-gradient-to-b mt-0 flex items-center justify-center flex-col" draggable="false" oncontextmenu="return false;">
+      <h2 class="mb-3  max-w-4xl text-center text-lg md:text-2xl xl:text-[32px] text-portfolio-black-bread mt-6   font-headings font-semibold uppercase  border-b-4 border-portfolio-green px-1">
+        Grafisk Design
+      </h2>
+
+      <!-- Graphics Description -->
+      <div class="max-w-3xl mb-3 md:mb-8 p-1 flex justify-around items-center  text-portfolio-black-bread rounded-4xl flex-col text-center text-lg md:text-2xl">
+        <p>I min grafiska formgivning strävar jag efter enkelhet, tydlighet och balans. Jag gillar att skapa visuella uttryck som fungerar både i tryck och digitalt. Här visar jag logotyper, grafisk profilering och andra designprojekt – främst skapade under min utbildning.</p>
+      </div>
+      <!-- Gallery -->
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        
+        <!-- Gallery 1 -->
+        <a  href="assets/images/grafisk-design-image-2.png" target="_blank" rel="noopener noreferrer" class="relative hover:scale-102 duration-200">
+            <span class="image-text image-text-tl rounded-lg md:rounded-bl-4xl text-md sm:text-lg md:text-2xl xl:text-3xl font-headings uppercase font-semibold text-portfolio-light text-center">Grafiska porträtt</span>
+            <img onclick="openLightbox(this.src)" class="h-auto max-w-full rounded-lg rounded-tl-4xl md:rounded-bl-4xl aspect-[4/3] overflow-hidden object-cover" src="assets/images/grafisk-design-image-2.png" alt="" draggable="false" oncontextmenu="return false;">
+        </a>
+
+        <!-- Gallery 2 -->
+        <a href="assets/pdf/Piraterna - Presentation - Tomas Svedlund.pdf" target="_blank" rel="noopener noreferrer" class="relative hover:scale-102 duration-200">
+            <span class="image-text rounded-lg rounded-tr-4xl md:rounded-tr-lg text-md sm:text-lg md:text-2xl xl:text-3xl font-headings uppercase font-semibold text-portfolio-light text-center">Skoluppgift: <br> Rebranding</span>
+            <img class="h-auto max-w-full rounded-lg rounded-tr-4xl md:rounded-tr-lg aspect-[4/3] overflow-hidden object-cover" src="assets/images/grafisk-design-image-3.png" alt="">
+        </a>
+
+        <!-- Gallery 3 -->
+        <a href="/assets/pdf/skoluppgift-grafisk-manual.pdf" target="_blank" rel="noopener noreferrer" class="relative hover:scale-102 duration-200">
+            <span class="image-text rounded-lg md:rounded-br-4xl md:rounded-tr-4xl rounded-bl-4xl md:rounded-bl-lg object-cover overflow-hidden w-full h-full text-md sm:text-lg md:text-2xl xl:text-3xl font-headings uppercase font-semibold text-portfolio-light text-center">Skoluppgift: <br> Grafisk manual</span>
+            <img class="h-auto max-w-full rounded-lg md:rounded-br-4xl md:rounded-tr-4xl rounded-bl-4xl md:rounded-bl-lg aspect-[4/3] overflow-hidden object-cover" src="assets/images/grafisk-design-image-4.png" alt="">
+        </a>
+
+        <!-- Gallery 4 / Hidden at big screen -->
+        <a href="contact.html"  class="relative hover:scale-102 duration-200 md:hidden">
+            <span class="image-text rounded-lg rounded-br-4xl md:rounded-tr-4xl object-cover overflow-hidden w-full h-full text-md sm:text-lg md:text-2xl xl:text-3xl font-headings uppercase font-semibold text-portfolio-light text-center"> Din framtida <br> grafiska profil?</span>
+            <img class="h-auto max-w-full rounded-lg rounded-br-4xl md:rounded-tr-4xl  aspect-[4/3] overflow-hidden object-cover bg-portfolio-black-bread" src="assets/images/creativity-1.jpg" alt="">
+        </a>
+
+      </div>
+    </section>
+
+
+   <!-- Site Footer --> 
+   <footer class="bottom-0 footer-full footer-small rounded-tr-4xl min-w-0 pr-3 lg:pr-6 with-notch-footer lg:pl-24  max-w-full max-h-full lg:h-24 text-portfolio-light flex flex-col justify-between items-center bg-portfolio-black-bread">
+     
+    <!-- Copyright & Socials -->
+    <div class="flex flex-col justify-center items-center w-full h-full  px-0 ">
+      
+      <!-- Footer Socials -->
+      <div class="flex lg:hidden gap-8 text-portfolio-light  mt-6 mb-4">
+
+
+        <!-- Instagram -->
+          <div class="socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://www.instagram.com/tomas.svedlund/" class="" target="_blank" rel="noopener noreferrer">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.28 0H22.72C27.84 0 32 4.16 32 9.28V22.72C32 25.1812 31.0223 27.5416 29.282 29.282C27.5416 31.0223 25.1812 32 22.72 32H9.28C4.16 32 0 27.84 0 22.72V9.28C0 6.81879 0.977712 4.45839 2.71805 2.71805C4.45839 0.977712 6.81879 0 9.28 0ZM8.96 3.2C7.43235 3.2 5.96727 3.80686 4.88707 4.88707C3.80686 5.96727 3.2 7.43235 3.2 8.96V23.04C3.2 26.224 5.776 28.8 8.96 28.8H23.04C24.5676 28.8 26.0327 28.1931 27.1129 27.1129C28.1931 26.0327 28.8 24.5676 28.8 23.04V8.96C28.8 5.776 26.224 3.2 23.04 3.2H8.96ZM24.4 5.6C24.9304 5.6 25.4391 5.81071 25.8142 6.18579C26.1893 6.56086 26.4 7.06957 26.4 7.6C26.4 8.13043 26.1893 8.63914 25.8142 9.01421C25.4391 9.38929 24.9304 9.6 24.4 9.6C23.8696 9.6 23.3609 9.38929 22.9858 9.01421C22.6107 8.63914 22.4 8.13043 22.4 7.6C22.4 7.06957 22.6107 6.56086 22.9858 6.18579C23.3609 5.81071 23.8696 5.6 24.4 5.6ZM16 8C18.1217 8 20.1566 8.84285 21.6569 10.3431C23.1571 11.8434 24 13.8783 24 16C24 18.1217 23.1571 20.1566 21.6569 21.6569C20.1566 23.1571 18.1217 24 16 24C13.8783 24 11.8434 23.1571 10.3431 21.6569C8.84285 20.1566 8 18.1217 8 16C8 13.8783 8.84285 11.8434 10.3431 10.3431C11.8434 8.84285 13.8783 8 16 8ZM16 11.2C14.727 11.2 13.5061 11.7057 12.6059 12.6059C11.7057 13.5061 11.2 14.727 11.2 16C11.2 17.273 11.7057 18.4939 12.6059 19.3941C13.5061 20.2943 14.727 20.8 16 20.8C17.273 20.8 18.4939 20.2943 19.3941 19.3941C20.2943 18.4939 20.8 17.273 20.8 16C20.8 14.727 20.2943 13.5061 19.3941 12.6059C18.4939 11.7057 17.273 11.2 16 11.2Z" fill="currentColor" fill-opacity="0.8"/>
+              </svg>                
+            </a>
+
+          </div>
+
+        <!-- Facebook -->
+          <div class="socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://www.facebook.com/tomas.svedlund/?locale=sv_SE" target="_blank" rel="noopener noreferrer">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 0C7.19999 0 0 7.21285 0 16.0964C0 24.1285 5.85599 30.7952 13.504 32V20.755H9.43999V16.0964H13.504V12.5462C13.504 8.51406 15.888 6.29719 19.552 6.29719C21.296 6.29719 23.12 6.60241 23.12 6.60241V10.5703H21.104C19.12 10.5703 18.496 11.8072 18.496 13.0763V16.0964H22.944L22.224 20.755H18.496V32C22.2663 31.4022 25.6995 29.4707 28.1758 26.5543C30.6522 23.6379 32.0085 19.9287 32 16.0964C32 7.21285 24.8 0 16 0Z" fill="currentColor" fill-opacity="0.8"/>
+              </svg>                
+            </a>
+
+          </div>
+
+        <!-- Linkedin -->
+          <div class="socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://www.linkedin.com/in/tomas-svedlund-599447263/" target="_blank" rel="noopener noreferrer">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M28.4444 0C29.3874 0 30.2918 0.374602 30.9586 1.0414C31.6254 1.70819 32 2.61256 32 3.55556V28.4444C32 29.3874 31.6254 30.2918 30.9586 30.9586C30.2918 31.6254 29.3874 32 28.4444 32H3.55556C2.61256 32 1.70819 31.6254 1.0414 30.9586C0.374602 30.2918 0 29.3874 0 28.4444V3.55556C0 2.61256 0.374602 1.70819 1.0414 1.0414C1.70819 0.374602 2.61256 0 3.55556 0H28.4444ZM27.5556 27.5556V18.1333C27.5556 16.5963 26.945 15.1221 25.8581 14.0353C24.7712 12.9484 23.2971 12.3378 21.76 12.3378C20.2489 12.3378 18.4889 13.2622 17.6356 14.6489V12.6756H12.6756V27.5556H17.6356V18.7911C17.6356 17.4222 18.7378 16.3022 20.1067 16.3022C20.7668 16.3022 21.3998 16.5644 21.8666 17.0312C22.3333 17.498 22.5956 18.131 22.5956 18.7911V27.5556H27.5556ZM6.89778 9.88445C7.68989 9.88445 8.44956 9.56978 9.00967 9.00967C9.56978 8.44956 9.88445 7.68989 9.88445 6.89778C9.88445 5.24444 8.55111 3.89333 6.89778 3.89333C6.10095 3.89333 5.33676 4.20987 4.77331 4.77331C4.20987 5.33676 3.89333 6.10095 3.89333 6.89778C3.89333 8.55111 5.24444 9.88445 6.89778 9.88445ZM9.36889 27.5556V12.6756H4.44444V27.5556H9.36889Z" fill="currentColor" fill-opacity="0.8"/>
+              </svg>                
+            </a>
+          </div>
+
+        <!-- Github -->
+          <div class="socials hover:duration-200 hover:scale-150 hover:shadow-2xl hover:text-portfolio-teal">
+            <a href="https://github.com/tomassvedlund" target="_blank" rel="noopener noreferrer">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="" xmlns="http://www.w3.org/2000/svg" class="">
+                <path d="M16 0C13.8989 0 11.8183 0.424127 9.87706 1.24817C7.93586 2.0722 6.17203 3.28001 4.68629 4.80264C1.68571 7.87772 0 12.0484 0 16.3972C0 23.6448 4.592 29.7938 10.944 31.9746C11.744 32.1058 12 31.5975 12 31.1547V28.3836C7.568 29.3674 6.624 26.1864 6.624 26.1864C5.888 24.2843 4.848 23.776 4.848 23.776C3.392 22.7594 4.96 22.7922 4.96 22.7922C6.56 22.9069 7.408 24.4811 7.408 24.4811C8.8 26.9734 11.152 26.2356 12.064 25.842C12.208 24.7762 12.624 24.0547 13.072 23.6448C9.52 23.2349 5.792 21.8247 5.792 15.5774C5.792 13.7573 6.4 12.2979 7.44 11.1337C7.28 10.7238 6.72 9.01848 7.6 6.80485C7.6 6.80485 8.944 6.36213 12 8.47737C13.264 8.11663 14.64 7.93626 16 7.93626C17.36 7.93626 18.736 8.11663 20 8.47737C23.056 6.36213 24.4 6.80485 24.4 6.80485C25.28 9.01848 24.72 10.7238 24.56 11.1337C25.6 12.2979 26.208 13.7573 26.208 15.5774C26.208 21.8411 22.464 23.2185 18.896 23.6284C19.472 24.1367 20 25.137 20 26.6619V31.1547C20 31.5975 20.256 32.1222 21.072 31.9746C27.424 29.7774 32 23.6448 32 16.3972C32 14.2439 31.5861 12.1117 30.7821 10.1223C29.978 8.13288 28.7994 6.32526 27.3137 4.80264C25.828 3.28001 24.0641 2.0722 22.1229 1.24817C20.1817 0.424127 18.1012 0 16 0Z" fill="currentColor" fill-opacity="0.8"/>
+              </svg>                
+            </a>
+          </div>
+
+      </div>
+
+      <!-- Copyright -->
+      <div class="mb-6 pt-0 px-3 md:px-6 lg:pt-6 text-center">
+         <span class=" text-wrap md:text-nowrap  font-paragraph text-portfolio-light text-md sm:text-xl ">Copyright Tomas Svedlund 2025. Alla rättigheter reserverade.</span>
+      </div>
+
+
+
+    </div>
+
+  </footer>
+
+
+
+</div>
+</body>
+</html>

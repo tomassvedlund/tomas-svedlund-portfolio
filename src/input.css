@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Rock+Salt&display=swap');
+
+@import "tailwindcss";
+
+
+@theme {
+    --color-portfolio-teal: oklch(0.52 0.0456 216.07);
+    --color-portfolio-orange: oklch(0.53 0.1383 41.39);
+    --color-portfolio-green: oklch(0.48 0.039 139.72);
+    --color-portfolio-black: oklch(0.17 0 0);
+    --color-portfolio-black-bread: oklch(0.23 0 0);
+    --color-portfolio-sand: oklch(0.88 0.0252 65.55);
+    --color-portfolio-gray: oklch(0.76 0.0168 73.64);
+    --color-portfolio-light: oklch(0.97 0.0029 84.56);
+    
+    --color-portfolio-link: oklch(0.84 0.003 84.56);
+
+    --font-paragraph: "IBM Plex Sans", "sans-serif";
+    --font-headings: "Archivo", "sans-serif";
+    --font-writing: "Rock Salt", "sans-serif";
+
+    --animate-bounce-x: bounce-x 1s ease-in-out infinite;
+
+        @keyframes bounce-x {
+            0%
+            100% {
+                transform: translateX(25%);
+                
+            }
+            50% {
+                transform: translateX(25%);
+            }
+        }
+  }
+
+
+
+@layer {
+
+    
+    li > a {
+        @apply text-portfolio-light hover:text-portfolio-green uppercase font-headings hover:duration-200 hover:scale-110;
+    }
+
+    .socials, .buttons {
+        @apply text-portfolio-light hover:text-portfolio-green uppercase font-headings ;
+    }
+
+
+}
+
+@layer base {
+
+    html {
+        scroll-behavior: smooth;
+      }
+
+      [id] {
+        scroll-margin-top: 132px;
+      }
+
+    h1 {
+        @apply font-headings uppercase leading-none text-3xl md:text-5xl xl:text-[77px] 2xl:text-8xl;
+
+    }
+
+
+    h2 {
+        @apply font-headings uppercase text-xl md:text-[26px] 2xl:text-3xl font-semibold;
+
+    }
+
+    
+
+    h3 {
+        @apply font-headings uppercase;
+    }
+
+    h4 {
+        @apply font-headings uppercase;
+    }
+
+    p {
+        @apply font-paragraph text-xl 2xl:text-2xl leading-relaxed;
+
+        @media screen and (max-width:768px) {
+            @apply text-lg;
+        }
+
+        @media screen and (max-width:640px) {
+            @apply text-base;
+        }
+    }
+}
+
+@layer utilities {
+
+    @media screen and (min-width:1024px) {
+        
+        .with-notch::before {
+          content: "";
+          position: absolute;
+          top:96px;
+          left: 96px;
+          width: 4rem;
+          height: 4rem;
+          background-color: transparent;
+          border-top-right-radius: 2rem;
+          z-index: 0;
+          rotate: 270deg;
+          box-shadow: 5px -15px 0 0 var(--color-portfolio-black-bread);
+        }
+
+        .with-notch-footer::before {
+            content: "";
+            position: absolute;
+            bottom:96px;
+            left: 96px;
+            width: 4rem;
+            height: 4rem;
+            background-color: transparent;
+            border-top-right-radius: 2rem;
+            z-index: 0;
+            rotate: 180deg;
+            box-shadow: 5px -15px 0 0 var(--color-portfolio-black-bread); 
+        }
+
+        .header-full {
+            width: calc(100% - 24px);
+        }
+
+
+    }
+    @media screen and (max-width:768px) {
+        .header-small, .footer-small {
+            width: calc(100% - 12px);
+        }
+    }
+    @media screen and (min-width:768px) {
+        .header-full, .footer-full {
+            width: calc(100% - 24px);
+        }
+    }
+
+    .cover-image {
+        opacity: 0;
+        
+    }
+
+    .cover-image:hover {
+        opacity: 1;
+    }
+
+    .image-text {
+        position: absolute;
+
+        display: flex;
+        inset: 0;
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
+        width: 100%;
+        height: 100%;
+        transition: opacity 0.2s;
+        background-color: rgba(0, 0, 0, 70%);
+
+        /* border-radius: 0.5rem; */
+       
+        object-fit: contain;
+        overflow: hidden;
+
+        @media screen and (min-width:1280px) {
+            opacity: 0;
+        }
+
+        &:hover {
+            opacity: 0;
+            @media screen and (min-width:1280px) {
+                opacity: 1;
+            }
+        }
+
+    }
+    
+    .image-text-tl {
+        border-top-left-radius: 2rem;
+    }
+    
+    .image-text-tr {
+        border-top-right-radius: 2rem;
+    }
+    .image-text-tr-reset {
+        border-top-right-radius: 0.5rem;
+    }
+    
+    .image-text-bl {
+        border-bottom-left-radius: 2rem;
+    }
+    
+    .image-text-br {
+        border-bottom-right-radius: 2rem;
+    }
+
+
+    /* Responsive Menu */
+
+    .responsive-menu {
+        display: none;
+        position: absolute;
+        z-index: 999;
+        background-color: var(--color-portfolio-black-bread);
+        right: 0;
+        margin-right: auto;
+        top: 80%;
+        width: 180px;
+        border-radius: 1rem;
+        text-align: center;
+
+    }
+
+    .responsive-menu--open {
+        display: block;
+    }
+
+    .site-header:has(.responsive-menu--open) {
+        transform: translateY(0);
+    }
+
+    .responsive-menu__list {
+        list-style: none;
+        margin: 0;
+        padding: 0 24px;
+    }
+
+    .responsive-menu__list-link {
+        display: block;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 700;
+        margin: 12px 0;
+    }
+
+    .menu-button {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 24px;
+
+        @media screen and (min-width: 1024px) {
+            display: none;
+        }
+    }
+    
+    body {
+        overflow-x: hidden;
+      }
+
+
+    .button:hover svg {
+    @apply animate-bounce-x ;
+    }
+
+    .button-bounce:hover svg {
+    @apply animate-bounce ;
+    }
+
+}
+
