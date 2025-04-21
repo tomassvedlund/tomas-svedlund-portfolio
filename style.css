@@ -87,7 +87,6 @@
     --text-5xl--line-height: 1;
     --text-8xl: 6rem;
     --text-8xl--line-height: 1;
-    --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --leading-relaxed: 1.625;
     --radius-lg: 0.5rem;
@@ -95,7 +94,6 @@
     --radius-4xl: 2rem;
     --animate-bounce: bounce 1s infinite;
     --blur-sm: 8px;
-    --aspect-video: 16 / 9;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
