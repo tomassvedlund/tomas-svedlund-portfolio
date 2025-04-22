@@ -314,6 +314,12 @@
   .m-3 {
     margin: calc(var(--spacing) * 3);
   }
+  .mx-auto {
+    margin-inline: auto;
+  }
+  .my-2 {
+    margin-block: calc(var(--spacing) * 2);
+  }
   .mt-0 {
     margin-top: calc(var(--spacing) * 0);
   }
@@ -344,6 +350,9 @@
   .mb-12 {
     margin-bottom: calc(var(--spacing) * 12);
   }
+  .block {
+    display: block;
+  }
   .flex {
     display: flex;
   }
@@ -352,6 +361,9 @@
   }
   .hidden {
     display: none;
+  }
+  .inline-block {
+    display: inline-block;
   }
   .inline-flex {
     display: inline-flex;
@@ -374,6 +386,9 @@
   }
   .h-\[30vh\] {
     height: 30vh;
+  }
+  .h-\[40vh\] {
+    height: 40vh;
   }
   .h-\[560px\] {
     height: 560px;
@@ -408,8 +423,14 @@
   .w-\[560px\] {
     width: 560px;
   }
+  .w-auto {
+    width: auto;
+  }
   .w-full {
     width: 100%;
+  }
+  .w-md {
+    width: var(--container-md);
   }
   .max-w-2xl {
     max-width: var(--container-2xl);
@@ -431,6 +452,9 @@
   }
   .max-w-lg {
     max-width: var(--container-lg);
+  }
+  .max-w-md {
+    max-width: var(--container-md);
   }
   .max-w-sm {
     max-width: var(--container-sm);
@@ -555,12 +579,23 @@
     border-style: var(--tw-border-style);
     border-width: 8px;
   }
+  .border-b {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 1px;
+  }
+  .border-b-2 {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 2px;
+  }
   .border-b-4 {
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 4px;
   }
   .border-black {
     border-color: var(--color-black);
+  }
+  .border-portfolio-black-bread {
+    border-color: var(--color-portfolio-black-bread);
   }
   .border-portfolio-green {
     border-color: var(--color-portfolio-green);
@@ -947,6 +982,11 @@
       display: none;
     }
   }
+  .md\:h-\[40vh\] {
+    @media (width >= 48rem) {
+      height: 40vh;
+    }
+  }
   .md\:max-h-\[65vh\] {
     @media (width >= 48rem) {
       max-height: 65vh;
@@ -1172,6 +1212,11 @@
   .lg\:h-\[40vh\] {
     @media (width >= 64rem) {
       height: 40vh;
+    }
+  }
+  .lg\:h-\[50vh\] {
+    @media (width >= 64rem) {
+      height: 50vh;
     }
   }
   .lg\:w-20 {
