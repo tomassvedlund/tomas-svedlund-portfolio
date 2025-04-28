@@ -60,7 +60,7 @@
       }
 
     h1 {
-        @apply font-headings uppercase leading-none text-3xl md:text-5xl xl:text-[77px] 2xl:text-8xl;
+        @apply font-headings uppercase leading-none text-3xl sm:text-5xl lg:text-6xl xl:text-[77px] 2xl:text-8xl text-nowrap md:text-wrap;
 
     }
 
